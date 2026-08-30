@@ -1,0 +1,19 @@
+{
+    "name": "alan-shahoei/task-manager",
+    "description": "A RESTful task management API built with PHP using MVC architecture.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alan Shahoei",
+            "email": "alan.shahoei07@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "src/Framework/",
+            "App\\": "src/App/"
+        }
+    }
+}
