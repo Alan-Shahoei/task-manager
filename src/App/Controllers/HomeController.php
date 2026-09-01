@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Controllers;
+namespace App\Controllers;
 
 class HomeController
 {
     public function index()
     {
-
+        echo 'home';
     }
 }

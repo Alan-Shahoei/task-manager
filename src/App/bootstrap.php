@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Controllers\HomeController;
+use App\Controllers\HomeController;
 use Framework\Application;
 
 require __DIR__ . "/../../vendor/autoload.php";
