@@ -8,13 +8,14 @@ class Router
 {
     private array $routes = [];
 
-    function add(string $method, string $path): void
+    function add(string $method, string $path, array $action): void
     {
         $path = $this->normalizePath($path);
 
         $this->routes[] = [
             'method' => $method,
-            'path' => $path
+            'path' => $path,
+            'action' => $action
         ];
     }
 
@@ -24,6 +25,4 @@ class Router
 
         return preg_replace('#/{2,}#', '/', $path);
     }
-
-
 }

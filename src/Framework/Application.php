@@ -13,8 +13,8 @@ class Application
         $this->router = new Router();
     }
 
-    function get(string $path)
+    public function get(string $path, array $action): void
     {
-        $this->router->add('GET', $path);
+        $this->router->add('GET', $path, $action);
     }
 }
