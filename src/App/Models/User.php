@@ -6,16 +6,16 @@ namespace App\Models;
 
 use DateTimeImmutable;
 
-class User
+readonly class User
 {
     public function __construct(
-        private readonly ?int $id = null,
-        private readonly string $name,
-        private readonly string $email,
-        private readonly string $passwordHash,
-        private readonly string $profession,
-        private readonly bool $isCeo = false,
-        private readonly ?DateTimeImmutable $createdAt = null,
+        private ?int $id = null,
+        private string $name,
+        private string $email,
+        private string $passwordHash,
+        private string $profession,
+        private bool $isCeo = false,
+        private ?DateTimeImmutable $createdAt = null,
     ) {
     }
 
