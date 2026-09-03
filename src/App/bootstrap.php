@@ -7,7 +7,7 @@ use Framework\Application;
 
 require __DIR__ . "/../../vendor/autoload.php";
 
-$application = new Application();
+$application = new Application(__DIR__ . "/container-definitions.php");
 
 $application->get('/', [HomeController::class, 'index']);
 
