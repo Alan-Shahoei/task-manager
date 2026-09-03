@@ -9,7 +9,7 @@ class Application
     private Router $router;
     private Container $container;
 
-    public function __construct(string $containerDefinitionsPath = null)
+    public function __construct(?string $containerDefinitionsPath = null)
     {
         $this->router = new Router();
         $this->container = new Container();
@@ -31,6 +31,21 @@ class Application
     public function get(string $path, array $action): void
     {
         $this->router->add($path, 'GET', $action);
+    }
+
+    public function post(string $path, array $action): void
+    {
+        $this->router->add($path, 'POST', $action);
+    }
+
+    public function delete(string $path, array $action): void
+    {
+        $this->router->add($path, 'DELETE', $action);
+    }
+
+    public function patch(string $path, array $action): void
+    {
+        $this->router->add($path, 'PATCH', $action);
     }
 
     public function addMiddleware(string $middleware): void
