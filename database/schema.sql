@@ -26,6 +26,10 @@ CREATE TABLE roles (
     name role_name NOT NULL UNIQUE
 );
 
+INSERT INTO roles (name)
+VALUES ('admin'), ('user')
+    ON CONFLICT (name) DO NOTHING;
+
 CREATE TABLE sections (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL UNIQUE,
