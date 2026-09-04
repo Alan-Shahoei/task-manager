@@ -19,8 +19,8 @@ readonly class UserRepository implements UserRepositoryInterface
     public function create(User $user): User
     {
         $statement = $this->pdo->prepare(
-            'INSERT INTO users (name,email,password_hash,profession,is_ceo)
-            VALUES (:name,:email,:password_hash,:profession,:is_ceo)
+            'INSERT INTO users (name,email,password_hash,profession)
+            VALUES (:name,:email,:password_hash,:profession)
             RETURNING *'
         );
 
@@ -29,7 +29,6 @@ readonly class UserRepository implements UserRepositoryInterface
             'email' => $user->getEmail(),
             'password_hash' => $user->getPasswordHash(),
             'profession' => $user->getProfession(),
-            'is_ceo' => $user->isCeo()
         ]);
 
         return $this->mapToUser($statement->fetch(PDO::FETCH_ASSOC));
