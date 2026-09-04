@@ -9,9 +9,9 @@ use DateTimeImmutable;
 readonly class Section
 {
     public function __construct(
-        private ?int $id = null,
         private string $name,
         private string $color = '#3B82F6',
+        private ?int $id = null,
         private ?DateTimeImmutable $createdAt = null,
     ) {
     }

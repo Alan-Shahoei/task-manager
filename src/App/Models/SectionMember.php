@@ -7,10 +7,10 @@ namespace App\Models;
 readonly class SectionMember
 {
     public function __construct(
-        private ?int $id = null,
         private int $userId,
         private int $roleId,
-        private int $sectionId
+        private int $sectionId,
+        private ?int $id = null
     ) {
     }
 

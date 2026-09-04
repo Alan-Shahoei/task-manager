@@ -9,13 +9,13 @@ use DateTimeImmutable;
 readonly class Task
 {
     public function __construct(
-        private ?int $id = null,
         private int $categoryId,
         private int $createdByMemberId,
         private string $title,
-        private ?string $description = null,
         private string $priority,
         private bool $isDone = false,
+        private ?int $id = null,
+        private ?string $description = null,
         private ?DateTimeImmutable $createdAt = null,
         private DateTimeImmutable $dueAt,
         private ?DateTimeImmutable $submittedAt = null

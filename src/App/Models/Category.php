@@ -9,11 +9,11 @@ use DateTimeImmutable;
 readonly class Category
 {
     public function __construct(
-        private ?int $id = null,
         private int $sectionId,
         private string $name,
-        private ?string $description = null,
         private string $color = '#10B981',
+        private ?int $id = null,
+        private ?string $description = null,
         private ?DateTimeImmutable $createdAt = null
     ) {
     }

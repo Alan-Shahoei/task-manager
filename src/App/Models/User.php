@@ -9,12 +9,12 @@ use DateTimeImmutable;
 readonly class User
 {
     public function __construct(
-        private ?int $id = null,
         private string $name,
         private string $email,
         private string $passwordHash,
         private string $profession,
         private bool $isCeo = false,
+        private ?int $id = null,
         private ?DateTimeImmutable $createdAt = null,
     ) {
     }

@@ -5,8 +5,8 @@ namespace App\Models;
 readonly class Role
 {
     public function __construct(
-        private ?int $id = null,
-        private string $name
+        private string $name,
+        private ?int $id = null
     ) {
     }
 

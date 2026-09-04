@@ -24,12 +24,7 @@ readonly class AuthService
 
         $passwordHash = password_hash($password, PASSWORD_DEFAULT );
 
-        $user = new User(
-            name: $name,
-            email: $email,
-            passwordHash: $passwordHash,
-            profession: $profession
-        );
+        $user = new User($name, $email, $passwordHash, $profession);
 
         return $this->userRepository->create($user);
     }
