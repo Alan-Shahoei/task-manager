@@ -33,4 +33,19 @@ readonly class AuthService
 
         return $this->userRepository->create($user);
     }
+
+    public function login(string $email, string $password): string
+    {
+        $user = $this->userRepository->findByEmail($email);
+
+        if (!$user) {
+            throw new RuntimeException('Invalid Username Or Password');
+        }
+
+        if (!password_verify($password, $user->getPasswordHash())) {
+            throw new RuntimeException('Invalid Username Or Password');
+        }
+
+        return $this->tokenService->generate(['user_id' => $user->getId()]);
+    }
 }
