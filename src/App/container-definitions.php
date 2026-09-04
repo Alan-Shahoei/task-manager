@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use App\Repositories\Interfaces\SectionMemberRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\RoleRepository;
 use App\Repositories\SectionMemberRepository;
 use App\Repositories\UserRepository;
 use App\Services\ValidatorService;
@@ -19,4 +21,7 @@ return [
 
     SectionMemberRepositoryInterface::class => fn($container) =>
     new SectionMemberRepository($container->get(PDO::class)),
+
+    RoleRepositoryInterface::class => fn($container) =>
+    new RoleRepository($container->get(PDO::class)),
 ];
