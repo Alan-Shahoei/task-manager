@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 use App\Middleware\ValidationExceptionMiddleware;
 use Framework\Application;
@@ -15,6 +16,8 @@ $dotenv->load();
 $application = new Application(__DIR__ . "/container-definitions.php");
 
 $application->get('/', [HomeController::class, 'index']);
+
+$application->post('/register', [AuthController::class, 'register']);
 
 $application->addMiddleware(ValidationExceptionMiddleware::class);
 
