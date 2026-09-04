@@ -55,7 +55,7 @@ CREATE TABLE categories (
     CONSTRAINT categories_unique UNIQUE (section_id, name)
 );
 
-CREATE TABLE IF NOT EXISTS tasks (
+CREATE TABLE tasks (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     category_id BIGINT NOT NULL REFERENCES categories(id),
     created_by_member_id BIGINT NOT NULL REFERENCES section_members(id),
@@ -65,10 +65,14 @@ CREATE TABLE IF NOT EXISTS tasks (
     is_done BOOLEAN NOT NULL DEFAULT FALSE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     due_at TIMESTAMPTZ NOT NULL,
+
+    CONSTRAINT tasks_due_after_creation
+        CHECK (due_at >= created_at),
+
     submitted_at TIMESTAMPTZ
 );
 
-CREATE TABLE IF NOT EXISTS task_assignments (
+CREATE TABLE task_assignments (
     section_member_id BIGINT NOT NULL REFERENCES section_members(id),
     task_id BIGINT NOT NULL REFERENCES tasks(id),
     PRIMARY KEY (section_member_id, task_id)
