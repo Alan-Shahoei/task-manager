@@ -53,11 +53,16 @@ readonly class AuthController
             'password' => ['required'],
         ]);
 
-        $token = $this->authService->login($data['email'], $data['password']);
+        $result = $this->authService->login($data['email'], $data['password']);
 
         Response::json([
             'message' => 'Login successful',
-            'token' => $token
+            'user' => [
+                'id' => $result['user']->getId(),
+                'name' => $result['user']->getName(),
+                'email' => $result['user']->getEmail()
+            ],
+            'token' => $result['token']
         ]);
     }
 }
