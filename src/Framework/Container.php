@@ -64,7 +64,7 @@ class Container
         }
 
         if (!array_key_exists($key, $this->resolved)) {
-            $dependency = $this->definitions[$key]();
+            $dependency = $this->definitions[$key]($this);
 
             $this->resolved[$key] = $dependency;
         }

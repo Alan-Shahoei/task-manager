@@ -2,10 +2,21 @@
 
 declare(strict_types=1);
 
+use App\Repositories\Interfaces\SectionMemberRepositoryInterface;
+use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Repositories\SectionMemberRepository;
+use App\Repositories\UserRepository;
 use App\Services\ValidatorService;
 use Framework\Connection;
 
 return [
-    ValidatorService::class => fn() => new ValidatorService,
+    ValidatorService::class => fn() => new ValidatorService(),
+
     PDO::class => fn() => Connection::make(),
+
+    UserRepositoryInterface::class => fn($container) =>
+    new UserRepository($container->get(PDO::class)),
+
+    SectionMemberRepositoryInterface::class => fn($container) =>
+    new SectionMemberRepository($container->get(PDO::class)),
 ];
