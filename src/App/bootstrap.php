@@ -16,8 +16,8 @@ $dotenv->load();
 $application = new Application(__DIR__ . "/container-definitions.php");
 
 $application->get('/', [HomeController::class, 'index']);
-
 $application->post('/register', [AuthController::class, 'register']);
+$application->post('/login', [AuthController::class, 'login']);
 
 $application->addMiddleware(ValidationExceptionMiddleware::class);
 

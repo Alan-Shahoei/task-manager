@@ -44,4 +44,20 @@ readonly class AuthController
         ]);
     }
 
+    public function login(): void
+    {
+        $data = json_decode(file_get_contents('php://input'), true) ?? [];
+
+        $this->validatorService->validate($data, [
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        $token = $this->authService->login($data['email'], $data['password']);
+
+        Response::json([
+            'message' => 'Login successful',
+            'token' => $token
+        ]);
+    }
 }
