@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
+use App\Auth\CurrentUser;
 use App\Repositories\Interfaces\RoleRepositoryInterface;
 use App\Repositories\Interfaces\SectionMemberRepositoryInterface;
+use App\Repositories\Interfaces\SectionRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\RoleRepository;
 use App\Repositories\SectionMemberRepository;
+use App\Repositories\SectionRepository;
 use App\Repositories\UserRepository;
 use App\Services\TokenService;
 use Framework\Connection;
@@ -23,5 +26,10 @@ return [
     RoleRepositoryInterface::class => fn($container) =>
     new RoleRepository($container->get(PDO::class)),
 
+    SectionRepositoryInterface::class => fn($container) =>
+    new SectionRepository($container->get(PDO::class)),
+
     TokenService::class => fn() => new TokenService($_ENV['JWT_SECRET'], (int) $_ENV['JWT_EXPIRATION']),
+
+    CurrentUser::class => fn() => new CurrentUser(),
 ];
