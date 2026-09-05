@@ -8,13 +8,12 @@ use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\RoleRepository;
 use App\Repositories\SectionMemberRepository;
 use App\Repositories\UserRepository;
-use App\Services\AuthService;
 use App\Services\TokenService;
-use App\Services\ValidatorService;
 use Framework\Connection;
+use Framework\Validator;
 
 return [
-    ValidatorService::class => fn() => new ValidatorService(),
+    Validator::class => fn() => new Validator(),
 
     PDO::class => fn() => Connection::make(),
 
@@ -28,9 +27,4 @@ return [
     new RoleRepository($container->get(PDO::class)),
 
     TokenService::class => fn() => new TokenService($_ENV['JWT_SECRET'], (int) $_ENV['JWT_EXPIRATION']),
-
-    AuthService::class => fn($container) => new AuthService(
-        $container->get(UserRepositoryInterface::class),
-        $container->get(TokenService::class)
-    ),
 ];
