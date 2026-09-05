@@ -48,8 +48,8 @@ class Application
         $this->router->add($path, 'PATCH', $action);
     }
 
-    public function addMiddleware(string $middleware): void
+    public function addMiddleware(string $middleware, array $except = []): void
     {
-        $this->router->addMiddleware($middleware);
+        $this->router->addMiddleware($middleware, $except);
     }
 }

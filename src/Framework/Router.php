@@ -42,7 +42,12 @@ class Router
                 $action = fn() => $controllerInstance->$function();
 
                 foreach ($this->middlewares as $middleware) {
+                    if (in_array($path, $middleware['except'])) {
+                        continue;
+                    }
+
                     $middlewareInstance = $container ? $container->resolve($middleware) : new $middleware();
+
                     $action = fn() => $middlewareInstance->process($action);
                 }
 
@@ -52,8 +57,11 @@ class Router
         }
     }
 
-    public function addMiddleware(string $middleware): void
+    public function addMiddleware(string $middleware, array $except = []): void
     {
-        $this->middlewares[] = $middleware;
+        $this->middlewares[] = [
+            'middleware' => $middleware,
+            'except' => $except
+        ];
     }
 }
