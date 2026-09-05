@@ -10,11 +10,8 @@ use App\Repositories\SectionMemberRepository;
 use App\Repositories\UserRepository;
 use App\Services\TokenService;
 use Framework\Connection;
-use Framework\Validator;
 
 return [
-    Validator::class => fn() => new Validator(),
-
     PDO::class => fn() => Connection::make(),
 
     UserRepositoryInterface::class => fn($container) =>

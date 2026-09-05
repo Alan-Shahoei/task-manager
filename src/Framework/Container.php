@@ -51,7 +51,9 @@ class Container
                 throw new ContainerException("Failed to resolve class {$className}, because invalid param type");
             }
 
-            $dependencies[] = $this->get($type->getName());
+            $dependency = $type->getName();
+
+            $dependencies[] = $this->has($dependency) ? $this->get($dependency) : $this->resolve($dependency);
         }
 
         return $reflectionClass->newInstanceArgs($dependencies);
@@ -70,5 +72,10 @@ class Container
         }
 
         return $this->resolved[$key];
+    }
+
+    public function has(string $key): bool
+    {
+        return array_key_exists($key, $this->definitions);
     }
 }
