@@ -108,13 +108,13 @@ readonly class UserRepository implements UserRepositoryInterface
     private function mapToUser(array $data): User
     {
         return new User(
-            id: (int) $data['id'],
-            name: $data['name'],
-            email: $data['email'],
-            passwordHash: $data['password_hash'],
-            profession: $data['profession'],
-            isCeo: (bool) $data['is_ceo'],
-            createdAt: new DateTimeImmutable($data['created_at'])
+            $data['name'],
+            $data['email'],
+            $data['password_hash'],
+            $data['profession'],
+            (bool) $data['is_ceo'],
+            (int) $data['id'],
+            new DateTimeImmutable($data['created_at'])
         );
     }
 }

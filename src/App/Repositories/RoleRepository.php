@@ -42,6 +42,6 @@ readonly class RoleRepository implements RoleRepositoryInterface
 
     private function mapToRole(array $data): Role
     {
-        return new Role(id: (int) $data['id'], name: $data['name']);
+        return new Role($data['name'], (int) $data['id']);
     }
 }

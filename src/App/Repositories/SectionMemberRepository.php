@@ -121,10 +121,10 @@ readonly class SectionMemberRepository implements SectionMemberRepositoryInterfa
     private function mapToSectionMember(array $data): SectionMember
     {
         return new SectionMember(
-            id: (int) $data['id'],
-            userId: (int) $data['user_id'],
-            roleId: (int) $data['role_id'],
-            sectionId: (int) $data['section_id']
+            (int) $data['user_id'],
+            (int) $data['role_id'],
+            (int) $data['section_id'],
+            (int) $data['id']
         );
     }
 }
