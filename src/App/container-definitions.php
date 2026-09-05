@@ -31,5 +31,5 @@ return [
 
     TokenService::class => fn() => new TokenService($_ENV['JWT_SECRET'], (int) $_ENV['JWT_EXPIRATION']),
 
-    CurrentUser::class => fn() => new CurrentUser(),
-];
+    CurrentUser::class => fn($container) =>
+    new CurrentUser($container->get(UserRepositoryInterface::class)),];
