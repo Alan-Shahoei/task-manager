@@ -88,6 +88,26 @@ readonly class SectionMemberRepository implements SectionMemberRepositoryInterfa
     }
 
 
+    public function isMember(int $userId, int $sectionId): bool
+    {
+        $statement = $this->pdo->prepare(
+            'SELECT EXISTS(
+                SELECT 1
+                FROM section_members
+                WHERE user_id = :user_id
+                AND section_id = :section_id
+            )'
+        );
+
+        $statement->execute([
+            'user_id' => $userId,
+            'section_id' => $sectionId
+        ]);
+
+        return (bool) $statement->fetchColumn();
+    }
+
+
     public function hasRole(int $userId, int $sectionId, int $roleId): bool
     {
         $statement = $this->pdo->prepare(

@@ -18,6 +18,8 @@ interface SectionMemberRepositoryInterface
 
     public function findBySectionId(int $sectionId): array;
 
+    public function isMember(int $userId, int $sectionId): bool;
+
     public function hasRole(int $userId, int $sectionId, int $roleId): bool;
 
     public function delete(int $id): bool;
