@@ -38,9 +38,4 @@ class CurrentUser
 
         return $this->user;
     }
-
-    public function isAuthenticated(): bool
-    {
-        return $this->userId !== null;
-    }
 }
