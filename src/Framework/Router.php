@@ -46,7 +46,9 @@ class Router
                         continue;
                     }
 
-                    $middlewareInstance = $container ? $container->resolve($middleware) : new $middleware();
+                    $middlewareClass = $middleware['middleware'];
+
+                    $middlewareInstance = $container ? $container->resolve($middlewareClass) : new $middlewareClass();
 
                     $action = fn() => $middlewareInstance->process($action);
                 }
