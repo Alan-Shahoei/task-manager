@@ -21,6 +21,14 @@ class Router
         ];
     }
 
+    public function addMiddleware(string $middleware, array $except = []): void
+    {
+        $this->middlewares[] = [
+            'middleware' => $middleware,
+            'except' => $except
+        ];
+    }
+
     private function normalizePath(string $path): string
     {
         $path = '/' . trim($path, " \n\r\t\v\0/");
@@ -34,37 +42,66 @@ class Router
         $path = $this->normalizePath($path);
 
         foreach ($this->routes as $route) {
-            if (
-                preg_match("#^{$route['path']}$#", $path)
-                && $route['method'] === $method
-            ) {
-                [$class, $function] = $route['action'];
-                $controllerInstance = $container ? $container->resolve($class) : new $class();
-                $action = fn() => $controllerInstance->$function();
+            if ($route['method'] !== $method) {
+                continue;
+            }
 
-                foreach ($this->middlewares as $middleware) {
-                    if (in_array($path, $middleware['except'])) {
-                        continue;
-                    }
+            $params = $this->matchRoute($route['path'], $path);
 
-                    $middlewareClass = $middleware['middleware'];
+            if ($params === null) {
+                continue;
+            }
 
-                    $middlewareInstance = $container ? $container->resolve($middlewareClass) : new $middlewareClass();
+            [$class, $function] = $route['action'];
 
-                    $action = fn() => $middlewareInstance->process($action);
+            $controllerInstance = $container ? $container->resolve($class) : new $class();
+
+
+            $action = fn() => $controllerInstance->$function(...$params);
+
+
+            foreach ($this->middlewares as $middleware) {
+
+                if (in_array($path, $middleware['except'])) {
+                    continue;
                 }
 
-                $action();
-                return;
+                $middlewareClass = $middleware['middleware'];
+
+                $middlewareInstance = $container ? $container->resolve($middlewareClass) : new $middlewareClass();
+
+                $action = fn() => $middlewareInstance->process($action);
             }
+
+            $action();
+
+            return;
         }
     }
 
-    public function addMiddleware(string $middleware, array $except = []): void
+    private function compileRoute(string $path): string
     {
-        $this->middlewares[] = [
-            'middleware' => $middleware,
-            'except' => $except
-        ];
+        $pattern = preg_replace(
+            '/\{([a-zA-Z0-9_]*)\}/',
+            '(?P<$1>[^/]+)',
+            $path
+        );
+
+        return '#^' . $pattern . '$#';
+    }
+
+    private function matchRoute(string $routePath, string $requestPath): ?array
+    {
+        $pattern = $this->compileRoute($routePath);
+
+        if (!preg_match($pattern, $requestPath, $matches)) {
+            return null;
+        }
+
+        return array_filter(
+            $matches,
+            fn($key) => is_string($key),
+            ARRAY_FILTER_USE_KEY
+        );
     }
 }
