@@ -28,24 +28,24 @@ class Application
         $this->router->dispatch($path, $method, $this->container);
     }
 
-    public function get(string $path, array $action): void
+    public function get(string $path, array $action, array $middleware = []): void
     {
-        $this->router->add($path, 'GET', $action);
+        $this->router->add($path, 'GET', $action, $middleware);
     }
 
-    public function post(string $path, array $action): void
+    public function post(string $path, array $action, array $middleware = []): void
     {
-        $this->router->add($path, 'POST', $action);
+        $this->router->add($path, 'POST', $action, $middleware);
     }
 
-    public function delete(string $path, array $action): void
+    public function delete(string $path, array $action, array $middleware = []): void
     {
-        $this->router->add($path, 'DELETE', $action);
+        $this->router->add($path, 'DELETE', $action, $middleware);
     }
 
-    public function patch(string $path, array $action): void
+    public function patch(string $path, array $action, array $middleware = []): void
     {
-        $this->router->add($path, 'PATCH', $action);
+        $this->router->add($path, 'PATCH', $action, $middleware);
     }
 
     public function addMiddleware(string $middleware, array $except = []): void

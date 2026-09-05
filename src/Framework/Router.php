@@ -9,14 +9,15 @@ class Router
     private array $routes = [];
     private array $middlewares = [];
 
-    public function add(string $path, string $method, array $action): void
+    public function add(string $path, string $method, array $action, array $routMiddlewares): void
     {
         $path = $this->normalizePath($path);
 
         $this->routes[] = [
             'method' => strtoupper($method),
             'path' => $path,
-            'action' => $action
+            'action' => $action,
+            'middleware' => $routMiddlewares
         ];
     }
 
