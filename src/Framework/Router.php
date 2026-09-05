@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Framework;
 
+use Framework\Exceptions\RouterException;
+
 class Router
 {
     private array $routes = [];
@@ -86,6 +88,8 @@ class Router
 
             return;
         }
+
+        throw new RouterException("Route {$method} {$path} not found");
     }
 
     private function compileRoute(string $path): string
